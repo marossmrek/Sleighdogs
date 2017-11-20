@@ -4,13 +4,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 
+import {PlayedVideo} from './PlayedVideo';
+
 class App extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             resultOfSearch: [],
-            searchText: ""
+            searchText: "",
+            choosedVideo: null
         };
 
         this.searchVideos = this.searchVideos.bind(this);
@@ -45,22 +48,30 @@ class App extends React.Component {
     }
 
     render() {
+        const videoLinks = this.state.resultOfSearch.map(video => "https://www.youtube.com/embed/" + video.id.videoId);
         return (
             <MuiThemeProvider>
-                <AppBar
-                    titleStyle={{display: "none"}}
-                    showMenuIconButton={false}
-                    style={{padding: "10px 0"}}
-                    children={
-                        <TextField
-                            onKeyPress={this.searchVideos}
-                            value={this.state.searchText}
-                            onChange={this.handleSearchTextChange}
-                            autoFocus={true}
-                            style={{position: "relative", left: "25%", width: "50%"}}
-                            hintText="Search video"/>
-                    }
-                />
+                <div>
+                    <AppBar
+                        titleStyle={{display: "none"}}
+                        showMenuIconButton={false}
+                        className="app-bar"
+                        children={
+                            <TextField
+                                onKeyPress={this.searchVideos}
+                                value={this.state.searchText}
+                                onChange={this.handleSearchTextChange}
+                                autoFocus={true}
+                                className="search-field"
+                                hintText="Search video"/>
+                        }
+                    />
+                    <div className="container-fluid text-center">
+                        <div className="row content">
+                            <PlayedVideo videoLink={this.state.choosedVideo === null ? videoLinks[0] : this.state.choosedVideo}/>
+                        </div>
+                    </div>
+                </div>
             </MuiThemeProvider>
         );
     }

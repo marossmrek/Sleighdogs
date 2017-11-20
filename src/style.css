@@ -1,0 +1,14 @@
+.app-bar {
+    padding: 10px 0px;
+}
+
+.search-field {
+    position: relative;
+    left: 25%;
+    width: 50% !important;
+}
+
+.paper {
+    margin-top: 15px;
+    padding: 10px;
+}
