@@ -4,30 +4,55 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 
-export const ListOfVideo = (props) => {
-    let videoList = props.videos.map((video) => {
+export class ListOfVideo extends React.Component {
+
+    renderCard(video) {
         return (
-            <Card className="card" key={video.id.videoId} onClick={() => props.handleChoosedVideo(video.id.videoId)}>
+            <Card key={video.id.videoId}
+                  className="card"
+                  onClick={() => this.props.handleChoosedVideo(video.id.videoId)}>
                 <CardMedia
                     overlay={<CardTitle title={video.snippet.title}
                                         titleStyle={{fontSize: "12px", lineHeight: "15px"}}/>}
                 >
-                    <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title}/>
+                    <img className="video-thunbnail"
+                         src={video.snippet.thumbnails.medium.url}
+                         alt={video.snippet.title}/>
                 </CardMedia>
             </Card>
         )
-    });
+    }
 
-    return (
-        <div className="col-sm-4">
-            <Paper className="paper" zDepth={3}>
-                {videoList}
-            </Paper>
-        </div>
-    )
+
+    render() {
+        return (
+            this.props.choosedVideo ?
+                <div className="col-sm-4">
+                    <Paper className="paper" zDepth={3}>
+                        {
+                            this.props.videos.map((video) => this.renderCard(video))
+
+                        }
+                    </Paper>
+                </div>
+                :
+                <Paper className="paper col-xs-12" zDepth={3}>
+                    {
+                        this.props.videos.map((video) =>
+                            <div className="col-xs-12 col-sm-6 col-md-3">
+                                {this.renderCard(video)}
+                            </div>
+                        )
+
+                    }
+                </Paper>
+        )
+    }
+
 };
 
 ListOfVideo.propTypes = {
+    choosedVideo: PropTypes.string,
     handleChoosedVideo: PropTypes.func,
     videos: PropTypes.array
 };

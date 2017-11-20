@@ -27,7 +27,7 @@ class App extends React.Component {
 
     searchVideos() {
         const ApiKey = 'AIzaSyAMgv6qxRfvWnfsOkEgkwwebN7RI3-uenY';
-        const NumberOfResult = 50;
+        const NumberOfResult = 20;
         let apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${ApiKey}
                       &part=snippet&maxResults=${NumberOfResult}&q=${this.state.searchText}`;
 
@@ -36,7 +36,8 @@ class App extends React.Component {
             .then((responseJson) => {
                 this.setState({
                     resultOfSearch: responseJson.items,
-                    searchText: ""
+                    searchText: "",
+                    choosedVideo: null
                 })
             })
             .catch((error) => {
@@ -57,7 +58,6 @@ class App extends React.Component {
     }
 
     render() {
-        const videoLinks = this.state.resultOfSearch.map(video => "https://www.youtube.com/embed/" + video.id.videoId);
         return (
             <div>
                 <AppBar
@@ -75,11 +75,10 @@ class App extends React.Component {
                     }
                 />
                 <div className="container-fluid text-center">
-                    <div className="row content">
-                        <PlayedVideo videoLink={this.state.choosedVideo ? this.state.choosedVideo : videoLinks[0]}/>
-                        <ListOfVideo handleChoosedVideo={this.handleChoosedVideo}
+                        <PlayedVideo choosedVideo={this.state.choosedVideo && this.state.choosedVideo}/>
+                        <ListOfVideo choosedVideo={this.state.choosedVideo && this.state.choosedVideo}
+                                     handleChoosedVideo={this.handleChoosedVideo}
                                      videos={this.state.resultOfSearch}/>
-                    </div>
                 </div>
             </div>
         );
