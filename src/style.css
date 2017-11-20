@@ -9,7 +9,7 @@
 }
 
 .paper {
-    margin-top: 15px;
+    margin: 15px 0px;
     padding: 10px;
 }
 
@@ -17,4 +17,10 @@
     width: 80%;
     margin: 0 auto;
     margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.video {
+    width: 560px;
+    height: 315px
 }

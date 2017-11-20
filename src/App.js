@@ -1,6 +1,5 @@
 import React from 'react';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 
@@ -19,27 +18,30 @@ class App extends React.Component {
 
         this.searchVideos = this.searchVideos.bind(this);
         this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
+        this.handleChoosedVideo = this.handleChoosedVideo.bind(this)
     }
 
-    searchVideos(event) {
-        const ApiKey = 'AIzaSyAMgv6qxRfvWnfsOkEgkwwebN7RI3-uenY';
-        const NumberOfResult = 5;
-        let apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${ApiKey}
-                        &part=snippet,id&order=date&maxResults=${NumberOfResult}&q=${this.state.searchText}`;
+    componentWillMount() {
+        this.searchVideos();
+    }
 
-        if (event.which === 13) {
-            fetch(apiUrl)
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    this.setState({
-                        resultOfSearch: responseJson.items,
-                        searchText: ""
-                    })
+    searchVideos() {
+        const ApiKey = 'AIzaSyAMgv6qxRfvWnfsOkEgkwwebN7RI3-uenY';
+        const NumberOfResult = 50;
+        let apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${ApiKey}
+                      &part=snippet&maxResults=${NumberOfResult}&q=${this.state.searchText}`;
+
+        fetch(apiUrl)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    resultOfSearch: responseJson.items,
+                    searchText: ""
                 })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     handleSearchTextChange(event) {
@@ -48,33 +50,38 @@ class App extends React.Component {
         })
     }
 
+    handleChoosedVideo(id) {
+        this.setState({
+            choosedVideo: `https://www.youtube.com/embed/${id}`
+        })
+    }
+
     render() {
         const videoLinks = this.state.resultOfSearch.map(video => "https://www.youtube.com/embed/" + video.id.videoId);
         return (
-            <MuiThemeProvider>
-                <div>
-                    <AppBar
-                        titleStyle={{display: "none"}}
-                        showMenuIconButton={false}
-                        className="app-bar"
-                        children={
-                            <TextField
-                                onKeyPress={this.searchVideos}
-                                value={this.state.searchText}
-                                onChange={this.handleSearchTextChange}
-                                autoFocus={true}
-                                className="search-field"
-                                hintText="Search video"/>
-                        }
-                    />
-                    <div className="container-fluid text-center">
-                        <div className="row content">
-                            <PlayedVideo videoLink={this.state.choosedVideo === null ? videoLinks[0] : this.state.choosedVideo}/>
-                            <ListOfVideo videos={this.state.resultOfSearch}/>
-                        </div>
+            <div>
+                <AppBar
+                    titleStyle={{display: "none"}}
+                    showMenuIconButton={false}
+                    className="app-bar"
+                    children={
+                        <TextField
+                            onKeyPress={(event) => event.which === 13 && this.searchVideos()}
+                            value={this.state.searchText}
+                            onChange={this.handleSearchTextChange}
+                            autoFocus={true}
+                            className="search-field"
+                            hintText="Search video"/>
+                    }
+                />
+                <div className="container-fluid text-center">
+                    <div className="row content">
+                        <PlayedVideo videoLink={this.state.choosedVideo ? this.state.choosedVideo : videoLinks[0]}/>
+                        <ListOfVideo handleChoosedVideo={this.handleChoosedVideo}
+                                     videos={this.state.resultOfSearch}/>
                     </div>
                 </div>
-            </MuiThemeProvider>
+            </div>
         );
     }
 
