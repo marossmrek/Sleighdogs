@@ -5,6 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 
 import {PlayedVideo} from './PlayedVideo';
+import {ListOfVideo} from './ListOfVideo';
 
 class App extends React.Component {
 
@@ -22,7 +23,7 @@ class App extends React.Component {
 
     searchVideos(event) {
         const ApiKey = 'AIzaSyAMgv6qxRfvWnfsOkEgkwwebN7RI3-uenY';
-        const NumberOfResult = 10;
+        const NumberOfResult = 5;
         let apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${ApiKey}
                         &part=snippet,id&order=date&maxResults=${NumberOfResult}&q=${this.state.searchText}`;
 
@@ -69,6 +70,7 @@ class App extends React.Component {
                     <div className="container-fluid text-center">
                         <div className="row content">
                             <PlayedVideo videoLink={this.state.choosedVideo === null ? videoLinks[0] : this.state.choosedVideo}/>
+                            <ListOfVideo videos={this.state.resultOfSearch}/>
                         </div>
                     </div>
                 </div>

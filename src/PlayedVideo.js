@@ -3,7 +3,7 @@ import Paper from 'material-ui/Paper';
 
 export const PlayedVideo = (props) => {
     return (
-        <div className="col-sm-7">
+        <div className="col-sm-8">
             <Paper className="paper" zDepth={3}>
                 <iframe title={props.videoLink}
                         width="560"

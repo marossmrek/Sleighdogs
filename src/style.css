@@ -12,3 +12,9 @@
     margin-top: 15px;
     padding: 10px;
 }
+
+.card {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
