@@ -1,0 +1,16 @@
+.app-bar {
+  padding: 10px 0px;
+
+  .search-field {
+    position: relative;
+    left: 25%;
+    width: 50% !important;
+
+    @media screen and (max-width: 768px) {
+      & {
+        width: 80% !important;
+        left: 10%;
+      }
+    }
+  }
+}

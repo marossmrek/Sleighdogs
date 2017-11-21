@@ -16,7 +16,7 @@ export class ListOfVideo extends React.Component {
                                         titleStyle={{fontSize: "12px", lineHeight: "15px"}}/>}
                 >
                     <img className="video-thunbnail"
-                         src={video.snippet.thumbnails.medium.url}
+                         src={video.snippet.thumbnails.high.url}
                          alt={video.snippet.title}/>
                 </CardMedia>
             </Card>

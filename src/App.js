@@ -3,8 +3,8 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 
-import {PlayedVideo} from './PlayedVideo';
-import {ListOfVideo} from './ListOfVideo';
+import {PlayedVideo} from './components/PlayedVideo';
+import {ListOfVideo} from './components/ListOfVideo';
 
 class App extends React.Component {
 
@@ -75,10 +75,12 @@ class App extends React.Component {
                     }
                 />
                 <div className="container-fluid text-center">
+                    <div className="row content">
                         <PlayedVideo choosedVideo={this.state.choosedVideo && this.state.choosedVideo}/>
                         <ListOfVideo choosedVideo={this.state.choosedVideo && this.state.choosedVideo}
                                      handleChoosedVideo={this.handleChoosedVideo}
                                      videos={this.state.resultOfSearch}/>
+                    </div>
                 </div>
             </div>
         );

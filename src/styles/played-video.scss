@@ -1,0 +1,13 @@
+.video {
+  max-width: 560px !important;
+  min-width: 560px !important;
+  height: 315px;
+  padding-top: 20px;
+  @media screen and (max-width: 1020px) {
+    & {
+      max-width: 100% !important;
+      min-width: 100% !important;
+      padding-top: 0px;
+    }
+  }
+}

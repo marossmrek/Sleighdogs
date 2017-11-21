@@ -19,9 +19,7 @@ export const PlayedVideo = (props) => {
                         </iframe>
                     </CardMedia>
                     <CardTitle title={props.choosedVideo.snippet.title}
-                               titleStyle={{textAlign:"left"}}
-                               subtitle={props.choosedVideo.snippet.description}
-                               subtitleStyle={{textAlign:"left"}}/>
+                               subtitle={props.choosedVideo.snippet.description}/>
                 </Card>
             </Paper>
         </div>
