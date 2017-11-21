@@ -10,7 +10,7 @@ export class ListOfVideo extends React.Component {
         return (
             <Card key={video.id.videoId}
                   className="card"
-                  onClick={() => this.props.handleChoosedVideo(video.id.videoId)}>
+                  onClick={() => this.props.handleChoosedVideo(video)}>
                 <CardMedia
                     overlay={<CardTitle title={video.snippet.title}
                                         titleStyle={{fontSize: "12px", lineHeight: "15px"}}/>}
@@ -23,15 +23,15 @@ export class ListOfVideo extends React.Component {
         )
     }
 
-
     render() {
         return (
             this.props.choosedVideo ?
                 <div className="col-sm-4">
                     <Paper className="paper" zDepth={3}>
                         {
-                            this.props.videos.map((video) => this.renderCard(video))
-
+                            this.props.videos.map((video) => {
+                                return video.id.videoId !== this.props.choosedVideo.id.videoId && this.renderCard(video)
+                            })
                         }
                     </Paper>
                 </div>
@@ -43,7 +43,6 @@ export class ListOfVideo extends React.Component {
                                 {this.renderCard(video)}
                             </div>
                         )
-
                     }
                 </Paper>
         )
@@ -52,7 +51,7 @@ export class ListOfVideo extends React.Component {
 };
 
 ListOfVideo.propTypes = {
-    choosedVideo: PropTypes.string,
+    choosedVideo: PropTypes.object,
     handleChoosedVideo: PropTypes.func,
     videos: PropTypes.array
 };

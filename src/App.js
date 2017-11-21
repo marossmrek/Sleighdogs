@@ -51,9 +51,9 @@ class App extends React.Component {
         })
     }
 
-    handleChoosedVideo(id) {
+    handleChoosedVideo(video) {
         this.setState({
-            choosedVideo: `https://www.youtube.com/embed/${id}`
+            choosedVideo: video
         })
     }
 

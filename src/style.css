@@ -18,8 +18,11 @@
     cursor: pointer;
 }
 
+.card:hover{
+    transform:scale(1.07,1.07);
+}
+
 .video {
-    width: 560px;
     height: 315px
 }
 
