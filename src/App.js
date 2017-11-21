@@ -1,10 +1,10 @@
 import React from 'react';
 
 import AppBar from 'material-ui/AppBar';
-import TextField from 'material-ui/TextField';
 
 import {PlayedVideo} from './components/PlayedVideo';
 import {ListOfVideo} from './components/ListOfVideo';
+import ReduxSearchField from './ReduxSearchField';
 
 class App extends React.Component {
 
@@ -45,10 +45,10 @@ class App extends React.Component {
             });
     }
 
-    handleSearchTextChange(event) {
+    handleSearchTextChange(searchVideo) {
         this.setState({
-            searchText: event.target.value
-        })
+            searchText: searchVideo.video
+        },this.searchVideos)
     }
 
     handleChoosedVideo(video) {
@@ -64,15 +64,7 @@ class App extends React.Component {
                     titleStyle={{display: "none"}}
                     showMenuIconButton={false}
                     className="app-bar"
-                    children={
-                        <TextField
-                            onKeyPress={(event) => event.which === 13 && this.searchVideos()}
-                            value={this.state.searchText}
-                            onChange={this.handleSearchTextChange}
-                            autoFocus={true}
-                            className="search-field"
-                            hintText="Search video"/>
-                    }
+                    children={<ReduxSearchField onSubmit={this.handleSearchTextChange}/>}
                 />
                 <div className="container-fluid text-center">
                     <div className="row content">
