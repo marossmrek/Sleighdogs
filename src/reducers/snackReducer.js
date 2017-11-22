@@ -10,6 +10,12 @@ const snackReducer = (state = {
                 msg: action.payload
             };
             break;
+        case "HIDDEN_BAR":
+            state = {
+                ...state,
+                isOpen:false
+            };
+            break;
     }
     return state;
 };

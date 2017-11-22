@@ -4,3 +4,10 @@ export function setSnackBarMsg(msg) {
         payload: msg
     };
 }
+
+export function closeSnackBarMsg() {
+    return {
+        type: "HIDDEN_BAR"
+    };
+}
+

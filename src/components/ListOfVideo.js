@@ -48,7 +48,8 @@ export class ListOfVideo extends React.Component {
         )
     }
 
-};
+}
+;
 
 ListOfVideo.propTypes = {
     choosedVideo: PropTypes.object,

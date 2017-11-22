@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 import Paper from 'material-ui/Paper';
-import {Card, CardMedia, CardTitle} from 'material-ui/Card';
+import {Card, CardMedia, CardTitle, CardActions} from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
+import ThumbUp from 'material-ui/svg-icons/action/thumb-up';
+import ThumbDown from 'material-ui/svg-icons/action/thumb-down';
+
 
 export const PlayedVideo = (props) => {
     return (
@@ -20,6 +24,16 @@ export const PlayedVideo = (props) => {
                     </CardMedia>
                     <CardTitle title={props.choosedVideo.snippet.title}
                                subtitle={props.choosedVideo.snippet.description}/>
+                    <CardActions>
+                        <IconButton tooltip="Send Like"
+                                    onClick={() => props.handleClickRate(props.choosedVideo.id.videoId, "like")}>
+                            <ThumbUp/>
+                        </IconButton>
+                        <IconButton tooltip="Send Dislike"
+                                    onClick={() => props.handleClickRate(props.choosedVideo.id.videoId, "dislike")}>
+                            <ThumbDown/>
+                        </IconButton>
+                    </CardActions>
                 </Card>
             </Paper>
         </div>
@@ -27,5 +41,6 @@ export const PlayedVideo = (props) => {
 };
 
 PlayedVideo.propTypes = {
-    choosedVideo: PropTypes.object
+    choosedVideo: PropTypes.object,
+    handleClickRate: PropTypes.func
 };
